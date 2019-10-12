@@ -1,0 +1,6 @@
+{% extends 'NURE_marks/index.html' %}
+
+{% block content_for_user_type %}
+    <p>Здравствуйте, {{ user }}, мы знаем, что вы из департамента:</p>
+    <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+{% endblock %}

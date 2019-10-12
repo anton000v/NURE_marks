@@ -1,0 +1,6 @@
+{% extends 'NURE_marks/index.html' %}
+
+{% block content_for_user_type %}
+    <p>Вы не авторизованы</p>
+    <a href="{% url 'account_login' %}">Войти</a>
+{% endblock %}

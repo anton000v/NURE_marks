@@ -1,0 +1,26 @@
+{% extends 'NURE_marks/base.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load account %}
+{% block content %}
+<h1 class="">NURE marks</h1>
+    {%  if user.email %}
+    <p>Активная почта - {{ user.email }}</p>
+    {% elif not user.email %}
+    <p>Чтобы увидеть почту нужно войти!</p>
+    {% endif %}
+        {% block content_for_user_type %}
+
+            {#<a href="{% url 'logout' %}">Выйти</a>#}
+            {#        {% if request.user.groups.all.0.name == 'Department' %}#}
+            {#            <h3>Вы работаете в департаменте</h3>#}
+            {##}
+            {#        {% elif request.user.groups.all.0.name == 'Teachers' %}#}
+            {#            <h3>Вы - препод</h3>#}
+            {##}
+            {#        {% elif request.user.groups.all.0.name == 'Students' %}#}
+            {#            <h3>Привет, студент</h3>#}
+            {#        {% endif %}#}
+        {% endblock %}
+
+{% endblock %}

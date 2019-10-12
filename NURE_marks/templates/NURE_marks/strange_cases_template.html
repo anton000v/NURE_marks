@@ -1,0 +1,6 @@
+{% extends 'NURE_marks/index.html' %}
+
+{% block content_for_user_type %}
+    <p>Странная почта. Она нурешная, но ее нет в базе.</p>
+    <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+{% endblock %}
