@@ -6,4 +6,4 @@ db.sqlite3
 /static111111
 .DS_Store
 .idea
-/venv
+venv/
