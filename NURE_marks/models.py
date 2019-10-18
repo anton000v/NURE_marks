@@ -66,7 +66,8 @@ class University_Group(models.Model):
         chained_field="group_faculty",
         chained_model_field="faculty_name_of_specialty",
         show_all=False,
-        auto_choose=True
+        auto_choose=True,
+
     )
     group_number = models.PositiveSmallIntegerField(verbose_name='Номер группы')
     year_of_receipt = models.PositiveSmallIntegerField(default=datetime.date.today().year,
@@ -122,3 +123,4 @@ class Student(models.Model):
 #     area = ChainedForeignKey(Area, chained_field="country", chained_model_field="country")
 #     city = models.CharField(max_length=50)
 #     street = models.CharField(max_length=100)
+
