@@ -22,8 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2nn#j#uut-(4a*ghb%04urb@+aphyysy*az6fiy4+@jz!56b1h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
 # ALLOWED_HOSTS = []
 
 # Application definition
@@ -76,7 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'NURE_marks_engine.wsgi.application'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'qwerty221b.pythonanywhere.com']
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
