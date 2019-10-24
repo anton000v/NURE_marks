@@ -61,12 +61,12 @@ class University_Group(models.Model):
     # specialty_of_group = models.ForeignKey(Specialty, on_delete=models.CASCADE, verbose_name="Выберите специальность",
     #                                        # limit_choices_to={'id__in': Faculty}
     #                                        )
-    specialty_of_group = ChainedManyToManyField(
+    specialty_of_group = ChainedForeignKey(
         Specialty,
-        horizontal=False,
+        # horizontal=False,
         chained_field="group_faculty",
         chained_model_field="faculty_name_of_specialty",
-        # show_all=False,
+        show_all=True,
         auto_choose=True,
 
     )
@@ -86,7 +86,6 @@ class Student(models.Model):
     student_group = models.ForeignKey(University_Group, on_delete=models.CASCADE, related_name='student_group')
     student = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Students"},
                                 null=True, blank=True)
-
     def __str__(self):
         return self.student.get_username()
 
