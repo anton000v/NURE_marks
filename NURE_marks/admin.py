@@ -8,7 +8,11 @@ class Faculty_Admin(admin.ModelAdmin):
 
 
 class Specialty_Admin(admin.ModelAdmin):
-    pass
+    class Media:
+        js = (
+            'smart-selects/admin/js/chainedfk.js',
+            'smart-selects/admin/js/chainedm2m.js',
+        )
 
 class Student_Tabular_Inline(admin.TabularInline):
     model = Student

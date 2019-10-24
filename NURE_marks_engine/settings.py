@@ -22,13 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2nn#j#uut-(4a*ghb%04urb@+aphyysy*az6fiy4+@jz!56b1h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# ALLOWED_HOSTS = []
+DEBUG = False
 
 # Application definition
 
 INSTALLED_APPS = [
-    'smart_selects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -37,13 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NURE_marks',
-    # 'import_export',
+    'smart_selects',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
-
+USE_DJANGO_JQUERY = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,7 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'NURE_marks/static')
 
-MEDIA_URL = 'propertyInfo/media/'
+MEDIA_URL = 'NURE_marks/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'NURE_marks/media')
 
 # ----------------------for foreign key to User:
@@ -189,6 +187,6 @@ SOCIALACCOUNT_ADAPTER = "NURE_marks.adapters_for_Google_API.MySocialAccount"
 #
 # ACCOUNT_EMAIL_REQUIRED = True
 
-USE_DJANGO_JQUERY = True
+
 
 

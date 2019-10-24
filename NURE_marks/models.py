@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 from django.contrib.auth.models import User
 import datetime
-from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import ChainedForeignKey,ChainedManyToManyField,GroupedForeignKey
 
 
 # Create your models here.
@@ -61,14 +61,16 @@ class University_Group(models.Model):
     # specialty_of_group = models.ForeignKey(Specialty, on_delete=models.CASCADE, verbose_name="Выберите специальность",
     #                                        # limit_choices_to={'id__in': Faculty}
     #                                        )
-    specialty_of_group = ChainedForeignKey(
+    specialty_of_group = ChainedManyToManyField(
         Specialty,
+        horizontal=False,
         chained_field="group_faculty",
         chained_model_field="faculty_name_of_specialty",
-        show_all=False,
+        # show_all=False,
         auto_choose=True,
 
     )
+    # specialty_of_group = GroupedForeignKey(Specialty,"faculty_name_of_specialty")
     group_number = models.PositiveSmallIntegerField(verbose_name='Номер группы')
     year_of_receipt = models.PositiveSmallIntegerField(default=datetime.date.today().year,
                                                        verbose_name="Год начала обучения")

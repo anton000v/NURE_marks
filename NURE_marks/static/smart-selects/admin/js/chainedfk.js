@@ -2,7 +2,7 @@
     // We're declaring global variables, so we cannot use strict mode
     // "use strict";
 
-    chainedfk = function() {
+    var chainedfk = function() {
         return {
             fireEvent: function (element, event) {
                 var evt, rtn;
