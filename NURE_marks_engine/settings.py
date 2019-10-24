@@ -24,12 +24,9 @@ SECRET_KEY = '2nn#j#uut-(4a*ghb%04urb@+aphyysy*az6fiy4+@jz!56b1h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
-    'smart_selects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -38,13 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NURE_marks',
-    # 'import_export',
+    'smart_selects',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
-
+USE_DJANGO_JQUERY = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,7 +73,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'NURE_marks_engine.wsgi.application'
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'qwerty221b.pythonanywhere.com']
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -124,7 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'NURE_marks/static')
 
-MEDIA_URL = 'propertyInfo/media/'
+MEDIA_URL = 'NURE_marks/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'NURE_marks/media')
 
 # ----------------------for foreign key to User:
@@ -156,7 +153,7 @@ LOGIN_REDIRECT_URL = '/'
 # ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = False
 # ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
@@ -189,5 +186,7 @@ SOCIALACCOUNT_ADAPTER = "NURE_marks.adapters_for_Google_API.MySocialAccount"
 # ACCOUNT_AUTHENTICATION_METHOD = "email"
 #
 # ACCOUNT_EMAIL_REQUIRED = True
+
+
 
 

@@ -3,7 +3,7 @@
 __pycache__
 myvenv
 db.sqlite3
-/static
+/static111111
 .DS_Store
 .idea
-venv
+/venv/

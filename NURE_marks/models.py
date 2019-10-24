@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 from django.contrib.auth.models import User
 import datetime
-from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import ChainedForeignKey,ChainedManyToManyField,GroupedForeignKey
 
 
 # Create your models here.
@@ -63,11 +63,14 @@ class University_Group(models.Model):
     #                                        )
     specialty_of_group = ChainedForeignKey(
         Specialty,
+        # horizontal=False,
         chained_field="group_faculty",
         chained_model_field="faculty_name_of_specialty",
-        show_all=False,
-        auto_choose=True
+        show_all=True,
+        auto_choose=True,
+
     )
+    # specialty_of_group = GroupedForeignKey(Specialty,"faculty_name_of_specialty")
     group_number = models.PositiveSmallIntegerField(verbose_name='Номер группы')
     year_of_receipt = models.PositiveSmallIntegerField(default=datetime.date.today().year,
                                                        verbose_name="Год начала обучения")
@@ -83,7 +86,6 @@ class Student(models.Model):
     student_group = models.ForeignKey(University_Group, on_delete=models.CASCADE, related_name='student_group')
     student = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Students"},
                                 null=True, blank=True)
-
     def __str__(self):
         return self.student.get_username()
 
@@ -122,3 +124,4 @@ class Student(models.Model):
 #     area = ChainedForeignKey(Area, chained_field="country", chained_model_field="country")
 #     city = models.CharField(max_length=50)
 #     street = models.CharField(max_length=100)
+
