@@ -22,6 +22,7 @@ def template_generator_for_user_type(current_user):
 def main_screen(request):
     current_user = request.user
     html_response_template = template_generator_for_user_type(current_user)
+
     return render(request, html_response_template)
 
 

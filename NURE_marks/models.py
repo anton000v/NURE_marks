@@ -63,12 +63,13 @@ class University_Group(models.Model):
     #                                        )
     specialty_of_group = ChainedForeignKey(
         Specialty,
-        # horizontal=False,
+        # horizontal=True,
         chained_field="group_faculty",
         chained_model_field="faculty_name_of_specialty",
         show_all=True,
         auto_choose=True,
-
+        # null=True,
+        # blank=True
     )
     # specialty_of_group = GroupedForeignKey(Specialty,"faculty_name_of_specialty")
     group_number = models.PositiveSmallIntegerField(verbose_name='Номер группы')
@@ -88,6 +89,34 @@ class Student(models.Model):
                                 null=True, blank=True)
     def __str__(self):
         return self.student.get_username()
+
+
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=100)
+    group_faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, verbose_name="Факультет группы")
+    specialty_of_group = ChainedForeignKey(
+        Specialty,
+        # horizontal=True,
+        chained_field="group_faculty",
+        chained_model_field="faculty_name_of_specialty",
+        show_all=True,
+        auto_choose=True,
+        # null=True,
+        # blank=True
+    )
+    group = ChainedForeignKey(
+        University_Group,
+        # horizontal=True,
+        chained_field="specialty_of_group",
+        chained_model_field="specialty_of_group",
+        show_all=True,
+        auto_choose=True,
+        # null=True,
+        # blank=True
+    )
+
+class Mark(models.Model):
+    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
 
 # ---------------------------------------- Example multi fields django smart selects
 # class Continent(models.Model):
