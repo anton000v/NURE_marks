@@ -95,8 +95,12 @@ class Student(models.Model):
 
 
 class Teacher(models.Model):
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'group__name': "Students"},
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Teachers"},
                                 null=True, blank=True)
+    the_department = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return self.teacher.username
 
 
 class Subject(models.Model):
@@ -112,6 +116,9 @@ class Subject(models.Model):
         # null=True,
         # blank=True
     )
+
+    def __str__(self):
+        return self.subject_name
 
 
 class DisciplineForGroup(models.Model):
@@ -149,6 +156,9 @@ class DisciplineForGroup(models.Model):
     lecturer = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='lecturer')
     practical_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='practical_teacher')
     laboratory_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='laboratory_teacher')
+
+    def __str__(self):
+        return "%s - %s" % (self.subject, self.group)
 
 
 class Mark(models.Model):

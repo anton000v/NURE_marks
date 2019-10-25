@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Faculty, Specialty, University_Group, Student, Subject, Mark, DisciplineForGroup
+from .models import Faculty, Specialty, University_Group, Student, Subject, Mark, DisciplineForGroup, Teacher
 from django.contrib.auth.models import User
 
 
@@ -43,6 +43,10 @@ class DisciplineForGroupAdmin(admin.ModelAdmin):
     pass
 
 
+class TeacherAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Specialty, SpecialtyAdmin)
 
@@ -50,4 +54,6 @@ admin.site.register(University_Group, UniversityGroupAdmin)
 admin.site.register(Student, StudentAdmin)
 
 admin.site.register(Subject, SubjectAdmin)
-admin.site.register(DisciplineForGroup,DisciplineForGroupAdmin)
+admin.site.register(DisciplineForGroup, DisciplineForGroupAdmin)
+
+admin.site.register(Teacher, TeacherAdmin)
