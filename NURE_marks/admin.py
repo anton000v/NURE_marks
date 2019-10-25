@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from .models import Faculty, Specialty, University_Group, Student, Subject,Mark
+from .models import Faculty, Specialty, University_Group, Student, Subject, Mark, DisciplineForGroup
 from django.contrib.auth.models import User
 
 
-class Faculty_Admin(admin.ModelAdmin):
+class FacultyAdmin(admin.ModelAdmin):
     pass
 
 
-class Specialty_Admin(admin.ModelAdmin):
+class SpecialtyAdmin(admin.ModelAdmin):
     class Media:
         js = (
             'smart-selects/admin/js/chainedfk.js',
@@ -16,33 +16,38 @@ class Specialty_Admin(admin.ModelAdmin):
         )
 
 
-class Student_Tabular_Inline(admin.TabularInline):
+class StudentTabularInline(admin.TabularInline):
     model = Student
     extra = 1
 
 
-class University_Group_Admin(admin.ModelAdmin):
+class UniversityGroupAdmin(admin.ModelAdmin):
     # raw_id_fields = ("specialty_of_group",)
-    inlines = [Student_Tabular_Inline, ]
+    inlines = [StudentTabularInline, ]
     pass
 
 
-class Student_Admin(admin.ModelAdmin):
+class StudentAdmin(admin.ModelAdmin):
     pass
 
 
-class Mark_Tabular_Inline(admin.TabularInline):
+class MarkTabularInline(admin.TabularInline):
     model = Mark
 
 
-class Subject_Admin(admin.ModelAdmin):
+class SubjectAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Faculty, Faculty_Admin)
-admin.site.register(Specialty, Specialty_Admin)
+class DisciplineForGroupAdmin(admin.ModelAdmin):
+    pass
 
-admin.site.register(University_Group, University_Group_Admin)
-admin.site.register(Student, Student_Admin)
 
-admin.site.register(Subject, Subject_Admin)
+admin.site.register(Faculty, FacultyAdmin)
+admin.site.register(Specialty, SpecialtyAdmin)
+
+admin.site.register(University_Group, UniversityGroupAdmin)
+admin.site.register(Student, StudentAdmin)
+
+admin.site.register(Subject, SubjectAdmin)
+admin.site.register(DisciplineForGroup,DisciplineForGroupAdmin)

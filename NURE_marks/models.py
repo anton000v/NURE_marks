@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 from django.contrib.auth.models import User
 import datetime
-from smart_selects.db_fields import ChainedForeignKey,ChainedManyToManyField,GroupedForeignKey
+from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, GroupedForeignKey
 
 
 # Create your models here.
@@ -83,16 +83,38 @@ class University_Group(models.Model):
             self.group_faculty, self.specialty_of_group, abs(self.year_of_receipt) % 100, self.group_number)
 
 
+# -----------------Почистить на продакшн null и blank
 class Student(models.Model):
-    student_group = models.ForeignKey(University_Group, on_delete=models.CASCADE, related_name='student_group')
+    student_group = models.ForeignKey(University_Group, on_delete=models.CASCADE, related_name='student_group',
+                                      default=None)
     student = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'groups__name': "Students"},
                                 null=True, blank=True)
+
     def __str__(self):
         return self.student.get_username()
 
 
+class Teacher(models.Model):
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'group__name': "Students"},
+                                null=True, blank=True)
+
+
 class Subject(models.Model):
     subject_name = models.CharField(max_length=100)
+    group_faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, verbose_name="Факультет группы")
+    specialty_of_group = ChainedForeignKey(
+        Specialty,
+        # horizontal=True,
+        chained_field="group_faculty",
+        chained_model_field="faculty_name_of_specialty",
+        show_all=True,
+        auto_choose=True,
+        # null=True,
+        # blank=True
+    )
+
+
+class DisciplineForGroup(models.Model):
     group_faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, verbose_name="Факультет группы")
     specialty_of_group = ChainedForeignKey(
         Specialty,
@@ -114,9 +136,23 @@ class Subject(models.Model):
         # null=True,
         # blank=True
     )
+    subject = ChainedForeignKey(
+        Subject,
+        # horizontal=True,
+        chained_field="specialty_of_group",
+        chained_model_field="specialty_of_group",
+        show_all=True,
+        auto_choose=True,
+        # null=True,
+        # blank=True
+    )
+    lecturer = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='lecturer')
+    practical_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='practical_teacher')
+    laboratory_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='laboratory_teacher')
+
 
 class Mark(models.Model):
-    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
 # ---------------------------------------- Example multi fields django smart selects
 # class Continent(models.Model):
@@ -153,4 +189,3 @@ class Mark(models.Model):
 #     area = ChainedForeignKey(Area, chained_field="country", chained_model_field="country")
 #     city = models.CharField(max_length=50)
 #     street = models.CharField(max_length=100)
-
