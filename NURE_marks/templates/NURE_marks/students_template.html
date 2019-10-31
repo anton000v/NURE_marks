@@ -2,8 +2,20 @@
 
 {% block content_for_user_type %}
 
-    <p>Привет, {{ user }}, мы знаем, что вы - студент:</p>
-    <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+    <p>Привет, {{ user }}, мы знаем, что вы - студент группы:
 
+        {% if current_user %}
+            {{ current_user.student_group }}
+
+        {% else %}
+            Студент не определился
+        {% endif %}
+    <p>У тебя вот такие баллы по всем предметам:
+    {% for marks in current_user %}
+
+    {% endfor %}
+    </p>
+    </p>
+    <li><a href="{% url 'account_logout' %}">Выйти</a></li>
 
 {% endblock %}

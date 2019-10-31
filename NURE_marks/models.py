@@ -116,6 +116,10 @@ class Subject(models.Model):
         # null=True,
         # blank=True
     )
+    lecturer = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='lecturer', null=True)
+    number_of_lectures = models.PositiveSmallIntegerField(default=0)
+    number_of_practical_lessons = models.PositiveSmallIntegerField(default=0)
+    number_of_laboratory_lessons = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.subject_name
@@ -153,16 +157,22 @@ class DisciplineForGroup(models.Model):
         # null=True,
         # blank=True
     )
-    lecturer = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='lecturer')
-    practical_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='practical_teacher')
-    laboratory_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='laboratory_teacher')
+
+    practical_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='practical_teacher',
+                                          null=True)
+    laboratory_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='laboratory_teacher',
+                                           null=True)
 
     def __str__(self):
         return "%s - %s" % (self.subject, self.group)
 
 
 class Mark(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(DisciplineForGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(University_Group,on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True)
+    marks = models.PositiveSmallIntegerField(default=0)
+
 
 # ---------------------------------------- Example multi fields django smart selects
 # class Continent(models.Model):

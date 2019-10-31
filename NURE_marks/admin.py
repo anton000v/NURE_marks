@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Faculty, Specialty, University_Group, Student, Subject, Mark, DisciplineForGroup, Teacher
+
 from django.contrib.auth.models import User
 
 
@@ -31,8 +32,11 @@ class StudentAdmin(admin.ModelAdmin):
     pass
 
 
-class MarkTabularInline(admin.TabularInline):
-    model = Mark
+# class MarkTabularInline(admin.TabularInline):
+#     model = Mark
+
+class MarkAdmin(admin.ModelAdmin):
+    pass
 
 
 class SubjectAdmin(admin.ModelAdmin):
@@ -57,3 +61,4 @@ admin.site.register(Subject, SubjectAdmin)
 admin.site.register(DisciplineForGroup, DisciplineForGroupAdmin)
 
 admin.site.register(Teacher, TeacherAdmin)
+admin.site.register(Mark, MarkAdmin)
