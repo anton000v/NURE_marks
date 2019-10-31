@@ -43,9 +43,8 @@ def main_screen(request):
     # current_user = request.user
     # html_response_template = template_generator_for_user_type(request.user)
     current_user, html_response_template, user_type = user_identification(request.user)
-    if user_type == 's':
 
-    elif
+
     context = {
         'current_user': current_user,
     }
