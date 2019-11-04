@@ -5,16 +5,17 @@
     <p>Привет, {{ user }}, мы знаем, что вы - студент группы:
 
         {% if current_user %}
-            {{ current_user.student_group }}
+        {{  current_user.student_group }}
 
         {% else %}
             Студент не определился
         {% endif %}
-    <p>У тебя вот такие баллы по всем предметам:
-    {% for marks in current_user %}
-
-    {% endfor %}
-    </p>
+        <p>У твоей группы вот такие баллы по всем предметам:
+{#        {% for mark in group_marks %}#}
+{#            <p>{{ mark.student }} - {{ mark.subject.subject }} - {{ mark.marks }}</p>#}
+{#            {% for mark in discipline.ma %}#}
+{#        {% endfor %}#}
+        </p>
     </p>
     <li><a href="{% url 'account_logout' %}">Выйти</a></li>
 

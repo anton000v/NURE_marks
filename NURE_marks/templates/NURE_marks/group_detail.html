@@ -1,0 +1,9 @@
+{% extends 'NURE_marks/base.html' %}
+{% block content %}
+    <h2>{{ subject }} - {{ group }}</h2>
+    <a class="btn btn-dark" href="{% url 'group_marks_edit' group_pk=group.pk subject_pk=subject.pk %}">Изменить
+        баллы</a>
+    {% for mark in group_marks %}
+        <p>{{ mark.student }} - {{ mark.marks }}</p>
+    {% endfor %}
+{% endblock %}

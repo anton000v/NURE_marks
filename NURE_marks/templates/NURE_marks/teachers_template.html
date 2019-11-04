@@ -3,4 +3,34 @@
 {% block content_for_user_type %}
     <p>Здравствуйте, {{ user }}, мы знаем, что вы - препод:</p>
     <li><a href="{% url 'account_logout' %}">Выйти</a></li>
+    <p>Выберете один из предметов, который вы ведете:</p>
+    <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group ">
+                    <select class="form-control" name="teacher-subject-select">
+                        <option value="" selected disabled hidden>
+                            Выберите группу
+                        </option>
+                        {% for subject in lecture_disciplines %}
+                            {% if subject.pk == subject_query %}
+                                <option value="{{ subject.pk }}" selected="selected">{{ subject }}</option>
+                            {% else %}
+                                <option value={{ subject.pk }}>{{ subject }}</option>
+                            {% endif %}
+
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col text-center">
+            <button type="submit" class="btn btn-dark">Поиск</button>
+        </div>
+    </form>
+    {% if teacher_subject_groups %}
+        {% for group in teacher_subject_groups %}
+            <p><a href="{% url 'group_detail' group_pk=group.group.pk subject_pk=group.subject.pk  %}"> {{ group }} </a></p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

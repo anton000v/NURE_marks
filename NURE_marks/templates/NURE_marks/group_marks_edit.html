@@ -1,0 +1,14 @@
+{% extends 'NURE_marks/base.html' %}
+{% block content %}
+    <h2>{{ subject }} - {{ group }}</h2>
+    ТАК ЧТО ТУТ ПОМЕНЯТЬ НАДА?
+    {{ group_discipline }}
+    {% for student in group.student_group. %}
+        <p>{{ student }}</p>
+    {% endfor %}
+
+    <form method="POST" class="post-form" enctype="multipart/form-data"> {% csrf_token %}
+       {{ form.as_p }}
+        <input type="submit" name="save" value="Сохранить">
+    </form>
+{% endblock %}

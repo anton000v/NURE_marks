@@ -3,7 +3,6 @@
 {% providers_media_js %}
 {% load account %}
 {% block content %}
-<h1 class="">NURE marks</h1>
     {%  if user.email %}
     <p>Активная почта - {{ user.email }}</p>
     {% elif not user.email %}
