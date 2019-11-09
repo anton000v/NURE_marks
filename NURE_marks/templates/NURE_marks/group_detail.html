@@ -1,9 +1,35 @@
 {% extends 'NURE_marks/base.html' %}
 {% block content %}
-    <h2>{{ subject }} - {{ group }}</h2>
-    <a class="btn btn-dark" href="{% url 'group_marks_edit' group_pk=group.pk subject_pk=subject.pk %}">Изменить
+    <h2>{{ group_discipline.subject }} - {{ group }}</h2>
+    <a class="btn btn-dark" href="{% url 'group_marks_edit' group_pk=group.pk discipline_pk=group_discipline.pk %}">Изменить
         баллы</a>
-    {% for mark in group_marks %}
-        <p>{{ mark.student }} - {{ mark.marks }}</p>
-    {% endfor %}
+
+
+    {% if group_marks %}
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Балл</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for student_mark in group_marks %}
+                <tr>
+                    <td>{{ student_mark.student.student }}</td>
+                    <td> {{ student_mark.mark }}</td>
+                </tr>
+                {#                </table>#}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>У этой группы пока нет оценок</p>
+        <p>Студенты этой группы:
+            {% for student in group.student_group.all %}
+            <p>{{ student }}</p>
+        {% endfor %}
+        </p>
+    {% endif %}
 {% endblock %}

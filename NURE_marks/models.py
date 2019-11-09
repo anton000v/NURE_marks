@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser
 
 from django.contrib.auth.models import User
 import datetime
+from . import choices
+from django.core.validators import MaxValueValidator, MinValueValidator
 from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, GroupedForeignKey
 
 
@@ -45,7 +47,7 @@ class Specialty(models.Model):
     specialty_name = models.CharField(max_length=50, verbose_name="Название специальности")
 
     class Meta:
-        unique_together = ('faculty_name_of_specialty','specialty_name')
+        unique_together = ('faculty_name_of_specialty', 'specialty_name')
 
     def __str__(self):
         return self.specialty_name
@@ -80,7 +82,6 @@ class University_Group(models.Model):
     group_number = models.PositiveSmallIntegerField(verbose_name='Номер группы', )
     year_of_receipt = models.PositiveSmallIntegerField(default=datetime.date.today().year,
                                                        verbose_name="Год начала обучения",
-
                                                        )
 
     class Meta:
@@ -172,11 +173,21 @@ class DisciplineForGroup(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject',
                                 )
 
-    number_of_lectures = models.PositiveSmallIntegerField(default=0)
-    number_of_practical_lessons = models.PositiveSmallIntegerField(default=0)
-    number_of_laboratory_lessons = models.PositiveSmallIntegerField(default=0)
-    number_of_tests = models.PositiveSmallIntegerField(default=0)
-    number_of_home_works = models.PositiveSmallIntegerField(default=0)
+    number_of_lectures = models.PositiveSmallIntegerField(default=0, validators=[
+        MaxValueValidator(20),
+    ])
+    number_of_practical_lessons = models.PositiveSmallIntegerField(default=0, validators=[
+        MaxValueValidator(20),
+    ])
+    number_of_laboratory_lessons = models.PositiveSmallIntegerField(default=0, validators=[
+        MaxValueValidator(20),
+    ])
+    number_of_tests = models.PositiveSmallIntegerField(default=0, validators=[
+        MaxValueValidator(20),
+    ])
+    number_of_home_works = models.PositiveSmallIntegerField(default=0, validators=[
+        MaxValueValidator(20),
+    ])
     course_work = models.BooleanField(default=False)
 
     practical_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='practical_teacher',
@@ -193,10 +204,17 @@ class DisciplineForGroup(models.Model):
 
 class Mark(models.Model):
     # group = models.ForeignKey(University_Group, on_delete=models.CASCADE)
-    subject = models.ForeignKey(DisciplineForGroup, on_delete=models.CASCADE)
+    discipline = models.ForeignKey(DisciplineForGroup, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    marks = models.PositiveSmallIntegerField(default=0)
+    type_of_mark = models.CharField(max_length=2, choices=choices.TYPE_OF_MARK_CHOICES, default='le')
+    number_of_type_of_mark = models.IntegerField(default=0)
+    mark = models.PositiveSmallIntegerField(default=0,validators=[
+            MaxValueValidator(100),
+        ])
 
+    def __str__(self):
+        return 'd:%s - s:%s - t:%s - number:%i - mark:%i' % (self.discipline, self.student, self.type_of_mark,
+                                                             self.number_of_type_of_mark, self.mark)
 # ---------------------------------------- Example multi fields django smart selects
 # class Continent(models.Model):
 #     continent = models.CharField(max_length=45)

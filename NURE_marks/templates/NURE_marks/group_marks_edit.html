@@ -1,14 +1,141 @@
 {% extends 'NURE_marks/base.html' %}
 {% block content %}
-    <h2>{{ subject }} - {{ group }}</h2>
-    ТАК ЧТО ТУТ ПОМЕНЯТЬ НАДА?
-    {{ group_discipline }}
-    {% for student in group.student_group. %}
-        <p>{{ student }}</p>
-    {% endfor %}
+    <h2> {{ group_discipline }}</h2>
+
+    {#    {% for student in group.student_group.all %}#}
+    {#        <p>{{ student }}</p>#}
+    {#    {% endfor %}#}
 
     <form method="POST" class="post-form" enctype="multipart/form-data"> {% csrf_token %}
-       {{ form.as_p }}
+        {{ discipline_form.as_p }}
+        {{ discipline_form.management_form }}
+        {#        <table class="table">#}
+        {#            <thead class="thead-light">#}
+        {#            <tr>#}
+        {#                <th scope="col">Имя</th>#}
+        {#                <th scope="col">Вид</th>#}
+        {#                <th scope="col">Номер</th>#}
+        {#                <th scope="col">Балл</th>#}
+        {#            </tr>#}
+        {#            </thead>#}
+        {#            <tbody>#}
+        {##}
+        {#            {% for form in group_marks_formset.forms %}#}
+        {#                <tr>#}
+        {#                    {{ form.non_field_errors }}#}
+        {#                    {{ form.errors }}#}
+        {#                <table class='no_error'>#}
+        {##}
+        {#                    <td>{{ form.id }}{{ form.student }}</td>#}
+        {#                    <td>{{ form.type_of_mark }}</td>#}
+        {#                    <td>{{ form.number_of_type_of_mark }}</td>#}
+        {#                    <td> {{ form.mark }}</td>#}
+        {##}
+        {#                </tr>#}
+        {#                </table>#}
+        {#            {% endfor %}#}
+        {#            {{ group_marks_formset.management_form }}#}
+        {#            </tbody>#}
+        {#        </table>#}
+
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Имя</th>
+
+                {#                {% for key,value in works_info_for_table.items %}#}
+                {#                    {% if key == 'number_of_lectures' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">Лекция №{{ i }}</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% elif key == 'number_of_laboratory_lessons' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">Лабораторная работа №{{ i }}</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% elif key == 'number_of_practical_lessons' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">Практическое занятие №{{ i }}</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% elif key == 'number_of_home_works' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">ДЗ №{{ i }}</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% elif key == 'number_of_tests' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">Тест №{{ i }}</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% elif key == 'course_work' %}#}
+                {#                        {% if value %}#}
+                {#                            {% for i in value %}#}
+                {#                                <th scope="col">Курсовая</th>#}
+                {#                            {% endfor %}#}
+                {#                        {% endif %}#}
+                {#                    {% endif %}#}
+                {#                {% endfor %}#}
+
+                {% for work_readable_name,range_of_work,work_db_name in works_info_for_table %}
+                    {% if work_readable_name == 'Курсовая работа' %}
+                        <th scope="col">{{ work_readable_name }}</th>
+                    {% else %}
+                        {% for i in range_of_work %}
+                            <th scope="col">{{ work_readable_name }} №{{ i }}</th>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for student in group.student_group.all %}
+                <tr>
+                    <td>{{ student }}</td>
+                    {% for form in group_marks_formset.forms %}
+{#                        {% if student == form.student %}#}
+
+                            {{ form.non_field_errors }}
+                            {{ form.errors }}
+                            <td>{{ form.mark }}</td>
+                            <td>{{ form.instanse }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            {#                {% for work_readable_name,range_of_work,work_db_name in works_info_for_table %}#}
+            {#                    {% if work_readable_name == 'Курсовая работа' %}#}
+            {#                        <th scope="col">{{ work_readable_name }}</th>#}
+            {#                    {% else %}#}
+            {#                        {% for i in range_of_work %}#}
+            {#                            <th scope="col">{{ work_readable_name }} №{{ i }}</th>#}
+            {#                        {% endfor %}#}
+            {#                    {% endif %}#}
+            {#                {% endfor %}#}
+            {#                {{ group_marks_formset.management_form }}#}
+
+            </tbody>
+        </table>
+        {#                <div id="form_set">#}
+        {#                    {% for form in group_marks_formset.forms %}#}
+        {#                        {{ form.non_field_errors }}#}
+        {#                        {{ form.errors }}#}
+        {#                        <table class='no_error'>#}
+        {#                            {{ form.instance.id }}#}
+        {#                            {{ form.as_p }}#}
+        {#                        </table>#}
+        {#                    {% endfor %}#}
+        {#                    {{ group_marks_formset.management_form }}#}
+        {#                </div>#}
+        {#        {{ group_marks_formset.as_p }}#}
         <input type="submit" name="save" value="Сохранить">
     </form>
 {% endblock %}

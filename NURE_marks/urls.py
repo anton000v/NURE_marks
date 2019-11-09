@@ -11,8 +11,8 @@ urlpatterns = [
     # path('flexselect/', include('flexselect.urls')),
     # url(r'^chaining/', include('smart_selects.urls')),
     path('chaining/', include('smart_selects.urls')),
-    path('group/<int:group_pk>-<int:subject_pk>', views.group_detail, name='group_detail'),
-    path('group/<int:group_pk>-<int:subject_pk>/group_marks_edit', views.group_marks_edit, name='group_marks_edit')
+    path('group/<int:group_pk>-<int:discipline_pk>', views.group_detail, name='group_detail'),
+    path('group/<int:group_pk>-<int:discipline_pk>/group_marks_edit', views.group_marks_edit, name='group_marks_edit')
     # path('media/(?P<path>.*)',serve,{'document_root':settings.MEDIA_ROOT}),
     # path('static/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),
 ]

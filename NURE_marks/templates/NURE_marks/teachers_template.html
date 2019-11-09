@@ -28,9 +28,9 @@
             <button type="submit" class="btn btn-dark">Поиск</button>
         </div>
     </form>
-    {% if teacher_subject_groups %}
-        {% for group in teacher_subject_groups %}
-            <p><a href="{% url 'group_detail' group_pk=group.group.pk subject_pk=group.subject.pk  %}"> {{ group }} </a></p>
+    {% if teacher_discipline_groups %}
+        {% for discipline in teacher_discipline_groups %}
+            <p><a href="{% url 'group_detail' group_pk=discipline.group.pk discipline_pk=discipline.pk  %}"> {{ discipline }} </a></p>
         {% endfor %}
     {% endif %}
 {% endblock %}
